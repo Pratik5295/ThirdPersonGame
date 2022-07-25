@@ -1,4 +1,6 @@
+using StarterAssets;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -7,9 +9,22 @@ public class PlayerMovementController : MonoBehaviour
 
     public float counter; //Testing updating value
 
+    [SerializeField] private CharacterController characterController;
+    [SerializeField] private StarterAssetsInputs _input;
+
+#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+    private PlayerInput _playerInput;
+#endif
+
     private void Start()
     {
         animator = this.GetComponent<Animator>();
+        characterController = this.GetComponent<CharacterController>();
+        _input = GetComponent<StarterAssetsInputs>();
+#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+        _playerInput = GetComponent<PlayerInput>();
+#endif
+
         AssignAnimIDs();
     }
 
@@ -39,6 +54,11 @@ public class PlayerMovementController : MonoBehaviour
     private void FixedUpdate()
     {
         IncreaseCounterTimer();
+        
+    }
+
+    private void Move()
+    {
         
     }
 }
